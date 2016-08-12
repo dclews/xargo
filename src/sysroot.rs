@@ -62,8 +62,8 @@ pub fn create(config: &Config,
               -> CargoResult<()> {
     let meta = rustc_version::version_meta_for(&config.rustc_info().verbose_version);
 
-    if meta.channel != Channel::Nightly {
-        return Err(util::human("Only the nightly channel is currently supported"));
+    if meta.channel != Channel::Nightly && meta.channel != Channel::Dev {
+        return Err(util::human("Only the nightly and dev (git) channels are currently supported"));
     }
 
     let commit_date = try!(meta.commit_date
